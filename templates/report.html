@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AI Interview Report</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body class="bg-gray-900 text-white min-h-screen p-10">
+
+<div class="max-w-5xl mx-auto">
+
+<h1 class="text-4xl font-bold mb-8 text-center">
+AI Interview Analytics
+</h1>
+
+
+<!-- STAT CARDS -->
+
+<div class="grid grid-cols-4 gap-6 mb-10">
+
+<div class="bg-gray-800 p-6 rounded-xl text-center">
+<p class="text-gray-400">Score</p>
+<p class="text-3xl font-bold">{{ report.score }}/10</p>
+</div>
+
+<div class="bg-gray-800 p-6 rounded-xl text-center">
+<p class="text-gray-400">Answered</p>
+<p class="text-3xl font-bold">{{ report.answered }}</p>
+</div>
+
+<div class="bg-gray-800 p-6 rounded-xl text-center">
+<p class="text-gray-400">Skipped</p>
+<p class="text-3xl font-bold">{{ report.skipped }}</p>
+</div>
+
+<div class="bg-gray-800 p-6 rounded-xl text-center">
+<p class="text-gray-400">Weak Answers</p>
+<p class="text-3xl font-bold">{{ report.weak }}</p>
+</div>
+
+</div>
+
+
+<!-- PROGRESS BAR -->
+
+<div class="mb-10">
+
+<p class="mb-2 text-lg">Interview Score</p>
+
+<div class="w-full bg-gray-700 rounded-full h-6">
+
+<div id="progressBar"
+class="bg-indigo-500 h-6 rounded-full flex items-center justify-center text-sm transition-all duration-1000"
+style="width:0%">
+{{ report.score }}/10
+</div>
+
+</div>
+
+</div>
+
+
+<!-- CHART -->
+
+<div class="bg-gray-800 p-6 rounded-xl mb-10">
+
+<canvas id="resultChart"></canvas>
+
+</div>
+
+
+<!-- AI FEEDBACK -->
+
+<div class="bg-gray-800 p-6 rounded-xl mb-10">
+
+<h2 class="text-xl font-bold mb-3">AI Recommendation</h2>
+
+<div class="bg-gray-700 p-4 rounded-lg">
+
+<p class="text-gray-300 leading-relaxed">
+{% if report.advice %}
+{{ report.advice }}
+{% else %}
+No recommendation generated.
+{% endif %}
+</p>
+
+</div>
+
+</div>
+
+
+<!-- ACTION BUTTONS -->
+
+<div class="flex gap-6 justify-center">
+
+<a href="/" class="bg-indigo-600 hover:bg-indigo-700 px-6 py-3 rounded-lg">
+Re-Interview
+</a>
+
+<button onclick="downloadReport()" class="bg-green-600 hover:bg-green-700 px-6 py-3 rounded-lg">
+Download Report
+</button>
+
+</div>
+
+</div>
+
+
+<!-- DATA STORAGE -->
+
+<div id="reportData"
+data-answered="{{ report.answered }}"
+data-weak="{{ report.weak }}"
+data-skipped="{{ report.skipped }}"
+data-score="{{ report.score }}"
+data-advice="{{ report.advice }}">
+</div>
+
+
+<script>
+
+// get report data
+const reportData = document.getElementById("reportData");
+
+const answered = Number(reportData.dataset.answered);
+const weak = Number(reportData.dataset.weak);
+const skipped = Number(reportData.dataset.skipped);
+const score = Number(reportData.dataset.score);
+const advice = reportData.dataset.advice;
+
+
+// progress bar
+const progressBar = document.getElementById("progressBar");
+
+const progressWidth = score * 10;
+
+progressBar.style.width = progressWidth + "%";
+
+
+// chart
+const ctx = document.getElementById('resultChart');
+
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Answered','Weak','Skipped'],
+        datasets: [{
+            label: 'Interview Analysis',
+            data: [answered, weak, skipped],
+            backgroundColor: [
+                '#22c55e',
+                '#f59e0b',
+                '#ef4444'
+            ]
+        }]
+    }
+});
+
+
+// download report
+function downloadReport(){
+
+const text = `
+Interview Score: ${score}/10
+Answered: ${answered}
+Weak Answers: ${weak}
+Skipped: ${skipped}
+
+Advice:
+${advice}
+`;
+
+const blob = new Blob([text], {type:'text/plain'});
+
+const a = document.createElement("a");
+
+a.href = URL.createObjectURL(blob);
+
+a.download = "interview_report.txt";
+
+a.click();
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Interview</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen p-10">
+
+<div class="max-w-4xl mx-auto bg-white shadow-xl rounded-xl p-10">
+
+<h2 class="text-3xl font-bold mb-6 text-center">AI Interview Questions</h2>
+
+<form action="/submit" method="POST" class="space-y-6">
+
+{% for q in questions %}
+
+<div>
+
+<p class="font-semibold text-lg mb-2">
+
+{{ q }}
+
+<button type="button"
+onclick="speak('{{ q }}')"
+class="ml-2 bg-gray-200 px-2 py-1 rounded">
+🔊
+</button>
+
+
+</p>
+
+<textarea
+name="{{ q }}"
+rows="4"
+placeholder="Type your answer here..."
+class="w-full border rounded-lg p-3">
+</textarea>
+<button type="button"
+onclick="fillUnknown(this)"
+class="bg-gray-300 text-black px-2 py-1 rounded ml-2">
+I don't know
+</button>
+
+</div>
+
+{% endfor %}
+
+<button
+class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg font-semibold">
+Submit Answers
+</button>
+
+</form>
+
+</div>
+
+</body>
+</html>
+
+<script>
+
+function speak(text){
+
+const speech = new SpeechSynthesisUtterance(text);
+
+speech.lang = "en-US";
+
+speechSynthesis.speak(speech);
+
+}
+
+function fillUnknown(button){
+
+const questionBlock = button.closest("div");
+
+const textarea = questionBlock.querySelector("textarea");
+
+textarea.value = "I don't know";
+textarea.style.backgroundColor = "#f3f4f6";
+
+}
+
+</script>
