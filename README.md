@@ -1,50 +1,108 @@
-# AI Resume Interviewer 🤖
+# AI Interview Simulator
 
-## Project Overview
+An AI-powered interview practice platform that analyzes a candidate's resume, generates interview questions, and evaluates answers to provide performance insights.
 
-AI Resume Interviewer is an AI-powered application that analyzes a candidate's resume and generates interview questions based on the detected skills. The system uses a knowledge base and a language model to simulate an intelligent interview assistant.
+This project simulates a real interview experience and provides analytics and recommendations based on user responses.
+
+---
 
 ## Features
 
-* Resume analysis
-* Automatic skill detection
-* AI-generated interview questions
-* Knowledge base using text documents
-* Question answering using LangChain
-* Simple and interactive interface
+- Resume upload and automatic skill extraction
+- Resume validation (minimum 5 skills required)
+- AI-generated interview questions based on skills
+- Text-to-speech question playback
+- Answer submission interface
+- AI-based answer evaluation
+- Interview analytics dashboard
+- Progress score visualization
+- Downloadable interview report
+- Re-interview option
 
-## Technologies Used
+---
 
-* Python
-* LangChain
-* OpenAI / LLM
-* Streamlit
-* Text-based knowledge base
-* Vector embeddings
+## Technology Stack
+
+Backend  
+- Python
+- Flask
+
+Frontend  
+- HTML
+- TailwindCSS
+- JavaScript
+
+Libraries  
+- Chart.js (analytics visualization)
+
+---
+
+## Project Structure
+
+
+AI-Interview-Simulator
+│
+├── app.py
+├── answer_evaluator.py
+├── question_generator.py
+├── resume_loader.py
+├── skill_extractor.py
+│
+├── templates
+│ ├── upload.html
+│ ├── interview.html
+│ └── report.html
+│
+├── static
+│
+├── screenshots
+│ ├── upload.png
+│ ├── interview.png
+│ ├── score.png
+│ └── advice.png
+│
+└── README.md
+
+
+---
+
+## Application Screenshots
+
+### Resume Upload Page
+![Resume Upload](screenshots/upload.png)
+
+### Interview Question Interface
+![Interview Page](screenshots/interview.png)
+
+### Interview Analytics Dashboard
+![Score Dashboard](screenshots/score.png)
+
+### AI Recommendation Section
+![Recommendation](screenshots/advice.png)
+
+---
 
 ## How It Works
 
-1. The user uploads a resume or inputs text.
-2. The system extracts key skills.
-3. A knowledge base is created using document embeddings.
-4. The AI model generates interview questions based on the detected skills.
+1. User uploads a resume.
+2. System extracts technical skills.
+3. If the resume has fewer than 5 skills, the user is asked to upload another resume.
+4. AI generates interview questions based on extracted skills.
+5. User answers the questions.
+6. System evaluates answers and generates an interview report.
+7. Dashboard displays performance analytics and recommendations.
 
-## Installation
-
-Clone the repository
-
-pip install -r requirements.txt
-
-Run the application
-
-streamlit run app.py
+---
 
 ## Future Improvements
 
-* Voice-based interview simulation
-* Resume scoring
-* More advanced AI feedback
-* Integration with job platforms
+- AI-based answer evaluation using LLMs
+- Skill radar analytics
+- Interview history tracking
+- Follow-up question generation
+- User authentication
+
+---
 
 ## Author
 
